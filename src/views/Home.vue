@@ -1,18 +1,15 @@
 <template>
   <div class="home">
     <img alt="Vue logo" src="../assets/logo.png" />
-    <HelloWorld msg="Welcome to Your Vue.js App" />
+    <h1>Hello and Welcome to the Grocery Cart!</h1>
+    <p>This is a little Vue application built with TypeScript and Vue 3's new Compositon API.</p>
+    <p>It consists of a very simple shopping cart. Use the groceries menu to navigate between grocery categories.</p>
+    <p>Navigate to the cart to view and edit your selected items.</p>
   </div>
 </template>
 
 <script>
-// @ is an alias to /src
-import HelloWorld from "@/components/HelloWorld.vue";
-
 export default {
   name: "Home",
-  components: {
-    HelloWorld
-  }
 };
 </script>
