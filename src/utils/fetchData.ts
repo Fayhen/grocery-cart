@@ -16,18 +16,15 @@
 //   ...
 // }
 
-import rawData from './products.json';
+import rawData from "../assets/products.json";
 
-type rawData = { [k: string]: any }
+type rawData = { [k: string]: any };
 
 function fetchProducts(productType: string) {
-  console.log("called fetchData with productType:");
-  console.log(productType);
   const productData: rawData = rawData;
-  console.log(productData);
   const products = productData[productType];
-  console.log(products);
+  
   return products;
-};
+}
 
 export { fetchProducts as default };

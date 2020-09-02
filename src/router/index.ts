@@ -1,28 +1,16 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
-import StorePage from "../views/StorePage.vue"
+import StorePage from "../views/StorePage.vue";
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
   {
-    path: "/fruits",
-    name: "Fruits",
+    path: "/:category",
+    name: "Store",
     component: StorePage,
-    props: {productType: "fruits"}
-  },
-  {
-    path: "/vegetables",
-    name: "vegetables",
-    component: StorePage,
-    props: {productType: "vegetables"}
-  },
-  {
-    path: "/dairy",
-    name: "dairy",
-    component: StorePage,
-    props: {productType: "dairy"}
+    props: true
   },
   {
     path: "/",

@@ -2,14 +2,10 @@
   <div id="app">
     <nav>
       <ul>
-        <li>
-          <router-link to="/fruits">Fruits</router-link>
-        </li>
-        <li>
-          <router-link to="/vegetables">Vegetables</router-link>
-        </li>
-        <li>
-          <router-link to="/dairy">Dairy</router-link>
+        <li v-for="(category, idx) in categories" :key="idx">
+          <router-link :to="{ path: category }">
+            {{ capitalize(category) }}
+          </router-link>
         </li>
         <li>
           <router-link to="/">Home</router-link>
@@ -19,19 +15,28 @@
         </li>
       </ul>
     </nav>
-    <router-view />
+    <router-view :key="$route.path" />
   </div>
 </template>
 
 <script lang="ts">
-import Vue from 'vue'
-import rawData from './assets/products.json';
+import Vue from "vue"
+import { ref, watch } from "@vue/composition-api";
+import rawData from "./assets/products.json";
+import capitalize from "./utils/capitalize";
 
 export default Vue.extend({
-  
-})
-</script>
+  methods: {
+    capitalize: capitalize
+  },
 
+  setup() {
+    const categories = ref(Object.keys(rawData));
+
+    return { categories };
+  }
+});
+</script>
 
 <style>
 #app {

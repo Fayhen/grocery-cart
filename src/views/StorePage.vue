@@ -1,7 +1,7 @@
 <template>
   <div>
-    <h1>{{ productType }}</h1>
-    <p>Browsing available products</p>
+    <h1>{{ this.capitalize(category) }}</h1>
+    <p>Browsing available products:</p>
     <ul>
       <li v-for="product in products" :key="product.id">
         <p>Product: {{ product.name }}</p>
@@ -14,27 +14,26 @@
 
 <script lang="ts">
 import { defineComponent, ref } from "@vue/composition-api";
-import fetchProducts from "../assets/fetchData";
+import fetchProducts from "../utils/fetchData";
+import capitalize from "../utils/capitalize";
 
 export default defineComponent({
   name: "StorePage",
 
+  methods: {
+    capitalize: capitalize
+  },
+
   props: {
-    productType: {
+    category: {
       type: String,
       required: true
     }
   },
 
   setup(props) {
-    // const hasProducts = ref(false);
     const products = ref([]);
-
-    products.value = fetchProducts(props.productType);
-
-    // if (products) {
-    //   hasProducts.value = true;
-    // }
+    products.value = fetchProducts(props.category);
 
     return { products };
   }
