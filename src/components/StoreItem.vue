@@ -1,14 +1,35 @@
 <template>
   <div>
-    <h1>{{ name }}</h1>
-    <p>{{ description }}</p>
-    <p>$ {{ value }}</p>
+    <div class="wrapper">
+      <h1>{{ name }}</h1>
+      <p>{{ description }}</p>
+      <p>$ {{ value.toFixed(2) }}</p>
+      <div class="buttons-wrapper">
+        <div class="arrows">
+          <div @click="increment()">
+            <i class="material-icons">keyboard_arrow_up</i>
+          </div>
+          <div @click="decrement()">
+            <i class="material-icons">keyboard_arrow_down</i>
+          </div>
+        </div>
+        <div class="amount-area">
+          <p>
+            Add <strong>{{ count }}</strong> to cart
+          </p>
+        </div>
+        <div class="add-button" @click="add()">
+          <i class="material-icons">add_shopping_cart</i>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from "@vue/composition-api";
-import capitalize from "../utils/capitalize";
+import { defineComponent, ref } from "@vue/composition-api";
+import capitalize from "@/utils/capitalize";
+import state from "@/state/store";
 
 export default defineComponent({
   name: "StoreItem",
@@ -29,9 +50,87 @@ export default defineComponent({
       required: true
     },
     value: {
-      type: String,
+      type: Number,
       required: true
     }
+  },
+  setup(props) {
+    const count = ref<number>(0);
+
+    const increment = () => {
+      return count.value++;
+    };
+
+    const decrement = () => {
+      if (count.value > 1) {
+        return count.value--;
+      }
+    };
+
+    const add = () => {
+      const { id, name, description, value } = props;
+      const amount: number = count.value;
+      if (amount >= 1) {
+        state.addProduct(id, { name, description, value, amount });
+        state.getTotalPrice();
+        console.log(`Added ${amount} items. productId: ${id}`);
+        console.log(state);
+
+        return (count.value = 0);
+      } else {
+        console.log("No items to add.");
+      }
+    };
+
+    return { count, increment, decrement, add };
   }
 });
 </script>
+
+<style scoped>
+h1 {
+  font-size: 1.25rem;
+}
+.wrapper {
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+}
+.buttons-wrapper {
+  height: 2.6rem;
+  width: 100%;
+  margin-top: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  color: #42b983;
+  background-color: #2c3e50;
+}
+.add-button {
+  height: 100%;
+  width: 2.6rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.arrows {
+  height: 100%;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  font-size: 0.5rem;
+}
+.arrows div {
+  height: 49%;
+  cursor: pointer;
+}
+.amount-area {
+  height: 100%;
+  width: 73%;
+  color: #2c3e50;
+  background-color: #8ffccb;
+}
+</style>

@@ -1,11 +1,17 @@
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import Home from "../views/Home.vue";
-import StorePage from "../views/StorePage.vue";
+import Home from "@/views/Home.vue";
+import StorePage from "@/views/StorePage.vue";
+import Cart from "@/views/Cart.vue";
 
 Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
+  {
+    path: "/cart",
+    name: "Cart",
+    component: Cart
+  },
   {
     path: "/:category",
     name: "Store",

@@ -1,73 +1,45 @@
-// class Product {
-//   name: string;
-//   description: string;
-//   value: number;
-//   productId: number;
-
-//   constructor(
-//     name: string,
-//     description: string,
-//     value: number,
-//     productId: number
-//   ) {
-//     this.name = name;
-//     this.description = description;
-//     this.value = value;
-//     this.productId = productId;
-//   }
-// };
-
-class Product {
-  constructor(
-    public name: string,
-    public description: string,
-    public value: number,
-    private productId: number
-  ) {}
-};
-
-interface cartItem {
+interface CartItem {
   name: string;
+  description: string;
   value: number;
   amount: number;
-  productId: number;
 }
 
 class Cart {
-  items: Map<number, cartItem>;
-  totalAmount: number;
-
+  // "items" property is a Map of [productId, CartItem]
   constructor(
-    items: Map<number, cartItem> = new Map(),
-    totalAmount: number = 0
+    private cartId: number = Math.floor(Math.random() * (100 - 1 + 1) + 1),
+    private totalAmount: number = 0,
+    private items: Map<string, CartItem> = new Map()
   ) {
-    this.items = items;
+    this.cartId = cartId;
     this.totalAmount = totalAmount;
-  };
+    this.items = items;
+  }
 
   getTotalPrice() {
     const items = [...this.items.values()];
-    let sum: number = items.reduce((acc, {value, amount}) => {
+    const sum: number = items.reduce((acc, { value, amount }) => {
       const newAmount: number = value * amount;
       return acc + newAmount;
     }, 0);
 
-    return sum;
+    return (this.totalAmount = sum);
   }
 
-  addProduct(cartId:number, product: cartItem) {
-    this.items.set(cartId, product);
+  addProduct(productId: string, product: CartItem) {
+    this.items.set(productId, product);
   }
 
-  removeProduct(cartId: number) {
-    this.items.delete(cartId);
+  removeProduct(productId: string) {
+    this.items.delete(productId);
   }
 
-  updateAmount(cartId: number, amount: number) {
-    const product = this.items.get(cartId);
+  updateAmount(productId: string, amount: number) {
+    const product = this.items.get(productId);
     if (product) {
       product.amount = amount;
-      this.items.set(cartId, product);
+      this.items.set(productId, product);
     }
   }
 
@@ -75,8 +47,4 @@ class Cart {
     this.items.clear();
   }
 }
-
-export default {
-  Product,
-  Cart
-}
+export { Cart as default };

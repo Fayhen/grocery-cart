@@ -7,7 +7,7 @@
           <div class="nav-element">
             <i class="material-icons" style="font-size: 48px">shopping_cart</i>
           </div>
-          <router-link to="/cart">
+          <router-link to="/cart" :cart="myCart">
             My Cart
           </router-link>
         </li>
@@ -36,8 +36,9 @@
 <script lang="ts">
 import Vue from "vue";
 import { ref } from "@vue/composition-api";
-import rawData from "./assets/products.json";
-import capitalize from "./utils/capitalize";
+import store from "@/state/store";
+import rawData from "@/assets/products.json";
+import capitalize from "@/utils/capitalize";
 
 export default Vue.extend({
   methods: {
@@ -46,8 +47,10 @@ export default Vue.extend({
 
   setup() {
     const categories = ref(Object.keys(rawData));
+    const myCart = store;
+    console.log(myCart);
 
-    return { categories };
+    return { categories, myCart };
   }
 });
 </script>
@@ -74,7 +77,7 @@ body::-webkit-scrollbar {
 body::-webkit-scrollbar-thumb {
   /* background: #2c3e50; */
   /* background: #42b983; */
-  background: #cbd4d0;
+  background: #c6e6e6;
 }
 
 body::-webkit-scrollbar-track {
