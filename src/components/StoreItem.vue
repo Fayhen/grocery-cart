@@ -1,26 +1,24 @@
 <template>
-  <div>
-    <div class="wrapper">
-      <h1>{{ name }}</h1>
-      <p>{{ description }}</p>
-      <p>$ {{ value.toFixed(2) }}</p>
-      <div class="buttons-wrapper">
-        <div class="arrows">
-          <div @click="increment()">
-            <i class="material-icons">keyboard_arrow_up</i>
-          </div>
-          <div @click="decrement()">
-            <i class="material-icons">keyboard_arrow_down</i>
-          </div>
+  <div class="wrapper">
+    <h1>{{ name }}</h1>
+    <p>{{ description }}</p>
+    <p>$ {{ value.toFixed(2) }}</p>
+    <div class="buttons-wrapper">
+      <div class="arrows">
+        <div @click="increment()">
+          <i class="material-icons">keyboard_arrow_up</i>
         </div>
-        <div class="amount-area">
-          <p>
-            Add <strong>{{ count }}</strong> to cart
-          </p>
+        <div @click="decrement()">
+          <i class="material-icons">keyboard_arrow_down</i>
         </div>
-        <div class="add-button" @click="add()">
-          <i class="material-icons">add_shopping_cart</i>
-        </div>
+      </div>
+      <div class="amount-area">
+        <p>
+          Add <strong>{{ count }}</strong> to cart
+        </p>
+      </div>
+      <div class="add-button" @click="add()">
+        <i class="material-icons">add_shopping_cart</i>
       </div>
     </div>
   </div>
@@ -90,10 +88,11 @@ export default defineComponent({
 <style scoped>
 h1 {
   font-size: 1.25rem;
+  margin-top: 1rem;
 }
 .wrapper {
   height: 100%;
-  width: 100%;
+  width: 99%;
   display: flex;
   flex-direction: column;
 }

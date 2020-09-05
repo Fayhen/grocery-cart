@@ -75,13 +75,10 @@ body::-webkit-scrollbar {
 }
 
 body::-webkit-scrollbar-thumb {
-  /* background: #2c3e50; */
-  /* background: #42b983; */
   background: #c6e6e6;
 }
 
 body::-webkit-scrollbar-track {
-  /* background: #42b983; */
   background: #2c3e50;
 }
 
@@ -149,6 +146,10 @@ nav a.router-link-exact-active {
   margin-left: 5rem;
   padding: 1rem;
   padding-bottom: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 @media only screen and (max-width: 600px) {

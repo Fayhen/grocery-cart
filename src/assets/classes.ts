@@ -17,8 +17,12 @@ class Cart {
     this.items = items;
   }
 
+  // Calculate total price for everything on the cart.
   getTotalPrice() {
     const items = [...this.items.values()];
+    if (items.length === 0) {
+      return 0;
+    }
     const sum: number = items.reduce((acc, { value, amount }) => {
       const newAmount: number = value * amount;
       return acc + newAmount;
@@ -27,22 +31,37 @@ class Cart {
     return (this.totalAmount = sum);
   }
 
-  addProduct(productId: string, product: CartItem) {
-    this.items.set(productId, product);
-  }
-
-  removeProduct(productId: string) {
-    this.items.delete(productId);
-  }
-
+  // Modify the amount of a product on the cart. Set negative number to 0.
   updateAmount(productId: string, amount: number) {
     const product = this.items.get(productId);
     if (product) {
-      product.amount = amount;
+      const newAmount = product.amount + amount;
+      product.amount = newAmount;
       this.items.set(productId, product);
     }
   }
 
+  // Add a product to the cart. If it already exists, update its amount.
+  addProduct(productId: string, product: CartItem) {
+    const exists = this.items.get(productId);
+    if (exists) {
+      this.updateAmount(productId, product.amount);
+    } else {
+      this.items.set(productId, product);
+    }
+  }
+
+  // Remove a product from the cart.
+  removeProduct(productId: string) {
+    this.items.delete(productId);
+  }
+
+  // Return map of products in cart.
+  retrieveItems() {
+    return this.items;
+  }
+
+  // Removes everything from the cart.
   clearCart() {
     this.items.clear();
   }
