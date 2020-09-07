@@ -7,22 +7,20 @@
     <div v-show="!noItems" class="table-wrapper">
       <div class="trow theader">
         <div class="tcol">Name</div>
-        <!-- <div class="tcol">Description</div> -->
         <div class="tcol">Amount</div>
         <div class="tcol">Price</div>
-        <div class="tcol">Total</div>
+        <div class="tcol">Sum</div>
         <div class="tcol">Edit</div>
       </div>
       <div class="trow" v-for="product in products" :key="product.id">
         <div class="tcol">{{ product.name }}</div>
-        <!-- <div class="tcol">{{ product.description }}</div> -->
         <div class="tcol">{{ product.amount }}</div>
         <div class="tcol">$ {{ product.value.toFixed(2) }}</div>
-        <div class="tcol">
+        <div class="tcol total-cell">
           $ {{ (product.amount * product.value).toFixed(2) }}
         </div>
-        <div class="tcol buttons-cell">
-          <div class="arrows">
+        <div class="tcol buttons-wrapper">
+          <div class="arrows button">
             <div @click="increment(product.id)">
               <i class="material-icons">keyboard_arrow_up</i>
             </div>
@@ -31,22 +29,28 @@
             </div>
           </div>
           <div class="button" @click="deleteItem(product.id)">
-            <i class="material-icons" style="font-size: 36px">delete_outline</i>
+            <i class="material-icons" style="font-size: 36px;">
+              delete_outline
+            </i>
           </div>
         </div>
       </div>
       <div class="trow tfooter">
-        <div class="tcol">
-          Total sum: <strong>$ {{ totalAmout.toFixed(2) }}</strong>
+        <div class="tcol"></div>
+        <div class="tcol"></div>
+        <div class="tcol"></div>
+        <div class="tcol total-cell">
+          <span style="padding-right: 0.2em;">Total:</span>
+          <span style="font-weight: bold;">$ {{ totalAmout.toFixed(2) }}</span>
         </div>
-        <div class="tcol buttons-cell">
+        <div class="tcol buttons-wrapper">
           <div class="button" @click="checkout()">
-            <i class="material-icons" style="font-size: 36px">
-              check_circle
+            <i class="material-icons" style="font-size: 36px;">
+              check_circle_outline
             </i>
           </div>
           <div class="button" @click="clearCart()">
-            <i class="material-icons" style="font-size: 36px">
+            <i class="material-icons" style="font-size: 36px;">
               remove_shopping_cart
             </i>
           </div>
@@ -126,12 +130,6 @@ export default defineComponent({
       hasItems();
     };
 
-    // const checkout = () => {
-    //   alert("Purchase complete!");
-    //   clearCart();
-    //   router.
-    // };
-
     refreshCart();
 
     return {
@@ -148,9 +146,13 @@ export default defineComponent({
 </script>
 
 <style scoped>
+h1 {
+  margin-bottom: 1.5rem;
+}
+.table-wrapper {
+  width: 90%;
+}
 .theader {
-  color: #42b983 !important;
-  background-color: #344a61 !important;
   font-weight: bold;
   font-size: 1.15rem;
 }
@@ -158,40 +160,46 @@ export default defineComponent({
   height: 2.75rem;
   width: 99%;
   padding: 0;
-  margin-bottom: 0.1rem;
   display: flex;
   flex-direction: row;
+  flex-shrink: 1;
   align-items: center;
   color: #344a61;
+  transition: margin 200ms ease-in-out;
 }
 .trow:hover {
   width: 100%;
-  background-color: #9cd8bd;
+  margin: 0.1rem 0 0.1rem 0.25rem;
+}
+.trow:first-child:hover {
+  width: 99%;
+  margin: 0;
 }
 .tcol {
-  width: 15vw;
-}
-.tfooter {
+  height: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
-  background-color: #9cd8bd;
-}
-.tfooter:hover {
-  background-color: #42b983;
-}
-.buttons-cell {
-  display: flex;
-  flex-direction: row;
+  flex-basis: 20%;
   align-items: center;
   justify-content: center;
 }
-.button {
-  cursor: pointer;
+.tcol:last-child {
+  flex-basis: 6rem;
 }
-.tfooter .button {
-  margin-right: 1rem;
-  margin-left: 1rem;
+.buttons-wrapper {
+  color: #344a61;
+  background-color: #42b983;
+}
+.button {
+  height: 100%;
+  width: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.button:hover {
+  background-color: #9cd8bd;
 }
 .arrows {
   flex-direction: column;
@@ -199,7 +207,28 @@ export default defineComponent({
   justify-content: space-between;
 }
 .arrows div {
-  height: 49%;
-  cursor: pointer;
+  display: flex;
+  justify-content: center;
+}
+.total-cell {
+  background-color: #69d6a5;
+}
+.total-cell:hover {
+  font-weight: bold;
+}
+.theader .tcol {
+  color: #42b983;
+  background-color: #344a61;
+}
+.tfooter .buttons-wrapper,
+.tfooter .total-cell {
+  margin-top: 0.1rem;
+  color: #42b983;
+  background-color: #344a61;
+}
+.tfooter .total-cell:hover,
+.tfooter .button:hover {
+  color: #28f096;
+  background-color: #344a61;
 }
 </style>

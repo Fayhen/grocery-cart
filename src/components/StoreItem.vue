@@ -18,7 +18,7 @@
         </p>
       </div>
       <div class="add-button" @click="add()">
-        <i class="material-icons">add_shopping_cart</i>
+        <i class="material-icons">{{ icon }}</i>
       </div>
     </div>
   </div>
@@ -54,6 +54,7 @@ export default defineComponent({
   },
   setup(props) {
     const count = ref<number>(0);
+    const icon = ref<string>("add_shopping_cart");
 
     const increment = () => {
       return count.value++;
@@ -65,6 +66,13 @@ export default defineComponent({
       }
     };
 
+    const swapIcon = () => {
+      icon.value = "done";
+      setTimeout(() => {
+        return (icon.value = "add_shopping_cart");
+      }, 1100);
+    };
+
     const add = () => {
       const { id, name, description, value } = props;
       const amount: number = count.value;
@@ -74,13 +82,13 @@ export default defineComponent({
         console.log(`Added ${amount} items. productId: ${id}`);
         console.log(state);
 
-        return (count.value = 0);
+        return (count.value = 0), swapIcon();
       } else {
         console.log("No items to add.");
       }
     };
 
-    return { count, increment, decrement, add };
+    return { count, icon, increment, decrement, add };
   }
 });
 </script>
@@ -117,6 +125,7 @@ h1 {
 }
 .arrows {
   height: 100%;
+  display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: space-between;
@@ -126,10 +135,8 @@ h1 {
   height: 49%;
   cursor: pointer;
 }
-.amount-area {
-  height: 100%;
-  width: 73%;
-  color: #2c3e50;
-  background-color: #8ffccb;
+.add-button:hover,
+.arrows div:hover {
+  background-color: #505c68;
 }
 </style>

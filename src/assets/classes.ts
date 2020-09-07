@@ -21,7 +21,7 @@ class Cart {
   getTotalPrice() {
     const items = [...this.items.values()];
     if (items.length === 0) {
-      return 0;
+      return (this.totalAmount = 0);
     }
     const sum: number = items.reduce((acc, { value, amount }) => {
       const newAmount: number = value * amount;
