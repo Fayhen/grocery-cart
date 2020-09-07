@@ -79,8 +79,6 @@ export default defineComponent({
       if (amount >= 1) {
         state.addProduct(id, { name, description, value, amount });
         state.getTotalPrice();
-        console.log(`Added ${amount} items. productId: ${id}`);
-        console.log(state);
 
         return (count.value = 0), swapIcon();
       } else {

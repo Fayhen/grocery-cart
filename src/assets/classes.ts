@@ -65,5 +65,9 @@ class Cart {
   clearCart() {
     this.items.clear();
   }
+
+  getCartId() {
+    return this.cartId;
+  }
 }
 export { Cart as default };

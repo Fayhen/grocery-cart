@@ -41,7 +41,11 @@
         </router-link>
       </ul>
     </nav>
-    <router-view class="main-view" :key="$route.path" />
+    <router-view
+      class="main-view"
+      :key="$route.path"
+      @checkout="$router.push('/')"
+    />
   </div>
 </template>
 
@@ -60,7 +64,6 @@ export default Vue.extend({
   setup() {
     const categories = ref(Object.keys(rawData));
     const myCart = store;
-    console.log(myCart);
 
     return { categories, myCart };
   }

@@ -44,7 +44,7 @@
           <span style="font-weight: bold;">$ {{ totalAmout.toFixed(2) }}</span>
         </div>
         <div class="tcol buttons-wrapper">
-          <div class="button" @click="checkout()">
+          <div class="button" @click="checkout(), $emit('checkout')">
             <i class="material-icons" style="font-size: 36px;">
               check_circle_outline
             </i>
@@ -67,13 +67,14 @@ import store from "@/state/store";
 export default defineComponent({
   name: "Cart",
 
-  methods: {
-    checkout() {
-      alert("Purchase complete!");
-      this.clearCart();
-      this.$router.push("/");
-    }
-  },
+  // methods: {
+  //   checkout() {
+  //     store.makeRequestData();
+  //     alert("Purchase complete!");
+  //     // this.clearCart();
+  //     this.$router.push("/");
+  //   }
+  // },
 
   setup() {
     interface Product {
@@ -130,6 +131,15 @@ export default defineComponent({
       hasItems();
     };
 
+    const checkout = () => {
+      const cartId = store.getCartId();
+      const requestData = { cartId, products: products.value };
+      console.log(JSON.stringify(requestData));
+      clearCart();
+
+      return alert("Purchase complete!");
+    };
+
     refreshCart();
 
     return {
@@ -139,7 +149,8 @@ export default defineComponent({
       increment,
       decrement,
       deleteItem,
-      clearCart
+      clearCart,
+      checkout
     };
   }
 });
