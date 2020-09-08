@@ -81,8 +81,6 @@ export default defineComponent({
         state.getTotalPrice();
 
         return (count.value = 0), swapIcon();
-      } else {
-        console.log("No items to add.");
       }
     };
 

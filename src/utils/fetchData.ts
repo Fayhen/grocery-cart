@@ -18,12 +18,13 @@
 
 import rawData from "../assets/products.json";
 
+// eslint-disable-next-line
 type rawData = { [k: string]: any };
 
 function fetchProducts(productType: string) {
   const productData: rawData = rawData;
   const products = productData[productType];
-  
+
   return products;
 }
 

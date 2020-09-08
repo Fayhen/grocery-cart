@@ -134,6 +134,7 @@ export default defineComponent({
     const checkout = () => {
       const cartId = store.getCartId();
       const requestData = { cartId, products: products.value };
+      // eslint-disable-next-line
       console.log(JSON.stringify(requestData));
       clearCart();
 
